@@ -1,71 +1,137 @@
-# i18n-google-sheet README
+# i18n Google Sheet Extension
 
-This is the README for your extension "i18n-google-sheet". After writing up a brief description, we recommend including the following sections.
+A VS Code extension to sync translations between Google Sheets and JSON files. This extension helps you manage your application's translations by using Google Sheets as a central management tool.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Two-way Sync**: Sync translations between Google Sheets and JSON files in both directions
+- **Multiple Language Support**: Handle multiple languages and translation files
+- **Secure Authentication**: Uses OAuth 2.0 for secure access to Google Sheets
+- **Progress Tracking**: Visual progress indicators during sync operations
+- **Error Handling**: Comprehensive error handling and user feedback
 
-For example if there is an image subfolder under your extension project workspace:
+## Prerequisites
 
-\!\[feature X\]\(images/feature-x.png\)
+Before using this extension, you need to:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Create a Google Cloud Project
+2. Enable the Google Sheets API
+3. Create OAuth 2.0 credentials
+4. Have a Google Sheet ready for translations
 
-## Requirements
+### Setting up Google Cloud Project
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Google Sheets API:
+   - Go to "APIs & Services" > "Library"
+   - Search for "Google Sheets API"
+   - Click "Enable"
+4. Create OAuth credentials:
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "OAuth client ID"
+   - Choose "Desktop application"
+   - Give it a name (e.g., "i18n Translation Tool")
+   - Save your Client ID and Client Secret
 
-## Extension Settings
+### Preparing Google Sheet
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+1. Create a new Google Sheet
+2. Set up your sheet with the following structure:
+   - First column header must be "key"
+   - Additional columns should be language codes (e.g., "en", "fr", "es")
+   - Each row represents a translation key and its values
 
-For example:
+Example sheet structure:
+| key | en | fr | es |
+|-----|----|----|----| 
+| welcome | Welcome | Bienvenue | Bienvenido |
+| goodbye | Goodbye | Au revoir | Adiós |
 
-This extension contributes the following settings:
+## Installation
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+1. Open VS Code
+2. Go to Extensions (Ctrl+Shift+X)
+3. Search for "i18n Google Sheet"
+4. Click Install
 
-## Known Issues
+## Usage
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+### Initial Setup
 
-## Release Notes
+1. Open Command Palette (Ctrl+Shift+P)
+2. Run "I18n Google Sheet: Setup"
+3. Enter the required information:
+   - Google Sheet ID (from your sheet's URL)
+   - Client ID
+   - Client Secret
+4. Complete the OAuth authentication process:
+   - A browser window will open
+   - Sign in to your Google account
+   - Grant the required permissions
+   - Copy the authentication code
+   - Paste the code back in VS Code
 
-Users appreciate release notes as you update your extension.
+### Syncing from Google Sheets to JSON
 
-### 1.0.0
+1. Open Command Palette
+2. Run "I18n Google Sheet: Sync from Google Sheets to JSON"
+3. Wait for the sync to complete
+4. JSON files will be created in the `locales` directory
 
-Initial release of ...
+### Syncing from JSON to Google Sheets
 
-### 1.0.1
+1. Open Command Palette
+2. Run "I18n Google Sheet: Sync from JSON to Google Sheets"
+3. Wait for the sync to complete
+4. Your Google Sheet will be updated with the latest translations
 
-Fixed issue #.
+## File Structure
 
-### 1.1.0
+The extension creates and maintains the following structure in your project:
 
-Added features X, Y, and Z.
+```
+your-project/
+└── locales/
+    ├── en/
+    │   └── [namespace].json
+    ├── fr/
+    │   └── [namespace].json
+    └── es/
+        └── [namespace].json
+```
 
----
+Each language has its own directory, and each translation namespace (sheet name) has its own JSON file.
 
-## Following extension guidelines
+## Troubleshooting
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+### Common Issues
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+1. **Authentication Failed**
+   - Ensure your Client ID and Secret are correct
+   - Make sure you've enabled the Google Sheets API
+   - Try the setup process again
 
-## Working with Markdown
+2. **Sheet Not Found**
+   - Verify your Google Sheet ID is correct
+   - Ensure you have access to the sheet
+   - Check if the sheet is shared properly
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+3. **Invalid Sheet Structure**
+   - Ensure your sheet has a "key" column
+   - Check that all language codes are valid
+   - Verify there are no duplicate keys
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+## Security
 
-## For more information
+- OAuth credentials are stored securely in VS Code's secret storage
+- No sensitive data is stored in plain text
+- All communication with Google APIs is encrypted
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## Contributing
 
-**Enjoy!**
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

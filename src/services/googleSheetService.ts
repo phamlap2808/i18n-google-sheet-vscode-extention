@@ -31,7 +31,7 @@ export class GoogleSheetService {
     return this.auth.generateAuthUrl({
       access_type: 'offline',
       scope: ['https://www.googleapis.com/auth/spreadsheets'],
-      prompt: 'consent'  // Force consent screen to ensure we get refresh token
+      prompt: 'consent'
     });
   }
 

@@ -16,7 +16,7 @@ Before using this extension, you need to:
 
 1. Create a Google Cloud Project
 2. Enable the Google Sheets API
-3. Create OAuth 2.0 credentials
+3. Create OAuth 2.0 credentials (Desktop application)
 4. Have a Google Sheet ready for translations
 
 ### Setting up Google Cloud Project
@@ -63,14 +63,14 @@ Example sheet structure:
 2. Run "I18n Google Sheet: Setup"
 3. Enter the required information:
    - Google Sheet ID (from your sheet's URL)
-   - Client ID
-   - Client Secret
+   - Client ID (from Desktop application credentials)
+   - Client Secret (from Desktop application credentials)
 4. Complete the OAuth authentication process:
-   - A browser window will open
+   - A browser window will open for Google authentication
    - Sign in to your Google account
    - Grant the required permissions
-   - Copy the authentication code
-   - Paste the code back in VS Code
+   - The authentication code will be automatically filled in VS Code
+   - Press Enter to confirm the code
 
 ### Syncing from Google Sheets to JSON
 
@@ -89,44 +89,6 @@ Example sheet structure:
 ## File Structure
 
 The extension creates and maintains the following structure in your project:
-
-```
-your-project/
-└── locales/
-    ├── en/
-    │   └── [namespace].json
-    ├── fr/
-    │   └── [namespace].json
-    └── es/
-        └── [namespace].json
-```
-
-Each language has its own directory, and each translation namespace (sheet name) has its own JSON file.
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Authentication Failed**
-   - Ensure your Client ID and Secret are correct
-   - Make sure you've enabled the Google Sheets API
-   - Try the setup process again
-
-2. **Sheet Not Found**
-   - Verify your Google Sheet ID is correct
-   - Ensure you have access to the sheet
-   - Check if the sheet is shared properly
-
-3. **Invalid Sheet Structure**
-   - Ensure your sheet has a "key" column
-   - Check that all language codes are valid
-   - Verify there are no duplicate keys
-
-## Security
-
-- OAuth credentials are stored securely in VS Code's secret storage
-- No sensitive data is stored in plain text
-- All communication with Google APIs is encrypted
 
 ## Contributing
 

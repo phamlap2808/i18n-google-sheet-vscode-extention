@@ -12,15 +12,12 @@ export class AuthServer {
         const app = express();
         this.codePromise = new Promise((resolve) => {
             app.get('/', async (req: Request, res: Response) => {
-                vscode.window.showInformationMessage('Received authentication callback');
                 const code = req.query.code as string;
                 if (code) {
                     // Show success page first
                     const htmlPath = path.join(__dirname, '../assets/auth.html');
-                    console.log('Serving HTML from:', htmlPath);
                     res.sendFile(htmlPath, async (err) => {
                         if (err) {
-                            console.error('Error serving HTML:', err);
                             res.status(500).send('Error loading authentication page');
                             return;
                         }

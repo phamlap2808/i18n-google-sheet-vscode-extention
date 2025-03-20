@@ -97,7 +97,7 @@ export async function activate(context: vscode.ExtensionContext) {
                 return tokens;
             });
 
-            vscode.window.showInformationMessage('Setup complete! You can now start syncing data.');
+            vscode.window.showInformationMessage('Setup complete!');
         } catch (error) {
             vscode.window.showErrorMessage(`Setup error: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }

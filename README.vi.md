@@ -16,7 +16,7 @@ Trước khi sử dụng tiện ích, bạn cần:
 
 1. Tạo một Google Cloud Project
 2. Bật Google Sheets API
-3. Tạo thông tin xác thực OAuth 2.0
+3. Tạo thông tin xác thực OAuth 2.0 (Ứng dụng Desktop)
 4. Chuẩn bị sẵn một Google Sheet
 
 ### Thiết lập Google Cloud Project
@@ -63,14 +63,14 @@ Ví dụ cấu trúc sheet:
 2. Chạy lệnh "I18n Google Sheet: Setup"
 3. Nhập các thông tin yêu cầu:
    - Google Sheet ID (lấy từ URL của sheet)
-   - Client ID
-   - Client Secret
+   - Client ID (từ thông tin xác thực Desktop application)
+   - Client Secret (từ thông tin xác thực Desktop application)
 4. Hoàn thành quá trình xác thực OAuth:
-   - Trình duyệt sẽ mở ra
+   - Trình duyệt sẽ mở ra để xác thực với Google
    - Đăng nhập tài khoản Google
    - Cấp quyền truy cập
-   - Sao chép mã xác thực
-   - Dán mã vào VS Code
+   - Mã xác thực sẽ tự động được điền vào VS Code
+   - Nhấn Enter để xác nhận mã
 
 ### Đồng bộ từ Google Sheets sang JSON
 
@@ -90,48 +90,10 @@ Ví dụ cấu trúc sheet:
 
 Tiện ích sẽ tạo và duy trì cấu trúc sau trong dự án của bạn:
 
-```
-your-project/
-└── locales/
-    ├── en/
-    │   └── [namespace].json
-    ├── vi/
-    │   └── [namespace].json
-    └── fr/
-        └── [namespace].json
-```
-
-Mỗi ngôn ngữ có một thư mục riêng, và mỗi namespace dịch (tên sheet) có một file JSON riêng.
-
-## Xử lý sự cố
-
-### Các vấn đề thường gặp
-
-1. **Xác thực thất bại**
-   - Kiểm tra lại Client ID và Secret
-   - Đảm bảo đã bật Google Sheets API
-   - Thử lại quá trình thiết lập
-
-2. **Không tìm thấy Sheet**
-   - Kiểm tra lại Google Sheet ID
-   - Đảm bảo bạn có quyền truy cập sheet
-   - Kiểm tra sheet đã được chia sẻ đúng cách
-
-3. **Cấu trúc Sheet không hợp lệ**
-   - Đảm bảo sheet có cột "key"
-   - Kiểm tra các mã ngôn ngữ hợp lệ
-   - Kiểm tra không có khóa trùng lặp
-
-## Bảo mật
-
-- Thông tin xác thực OAuth được lưu trữ an toàn trong kho lưu trữ bí mật của VS Code
-- Không có dữ liệu nhạy cảm nào được lưu dưới dạng văn bản thuần
-- Tất cả giao tiếp với API Google đều được mã hóa
-
 ## Đóng góp
 
 Chúng tôi rất hoan nghênh mọi đóng góp! Vui lòng tạo Pull Request nếu bạn muốn đóng góp.
 
 ## Giấy phép
 
-Dự án này được cấp phép theo giấy phép MIT - xem file LICENSE để biết thêm chi tiết. 
+Dự án này được cấp phép theo giấy phép MIT - xem file LICENSE để biết thêm chi tiết.

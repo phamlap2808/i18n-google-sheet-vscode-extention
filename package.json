@@ -1,15 +1,15 @@
 {
-  "name": "i18n-google-sheet",
-  "displayName": "i18n Google Sheet",
+  "name": "i18n-sheets-sync",
+  "displayName": "i18n Sheets Sync",
   "description": "Sync translations between Google Sheets and JSON files",
   "version": "0.0.1",
+  "publisher": "i18nSheetsSync",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.98.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -42,7 +42,7 @@
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "20.x",
-    "@types/vscode": "^1.80.0",
+    "@types/vscode": "^1.98.0",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "eslint": "^8.54.0",
@@ -62,5 +62,20 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/phamlap2808/i18n-google-sheet-vscode.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/phamlap2808/i18n-google-sheet-vscode/issues"
+  },
+  "homepage": "https://github.com/phamlap2808/i18n-google-sheet-vscode#readme",
+  "keywords": [
+    "i18n",
+    "translation",
+    "google sheets",
+    "localization"
+  ],
+  "author": {
+    "name": "LapPG",
+    "email": "phamlap2808@gmail.com"
+  },
+  "license": "MIT"
 }

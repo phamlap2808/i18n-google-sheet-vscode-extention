@@ -15,7 +15,7 @@ export class GoogleSheetService {
     this.auth = new google.auth.OAuth2(
       clientId,
       clientSecret,
-      'postmessage'  // Special redirect URI for desktop apps
+      'http://localhost'  // Redirect URI for desktop apps
     );
     
     this.sheets = google.sheets({ version: 'v4', auth: this.auth });

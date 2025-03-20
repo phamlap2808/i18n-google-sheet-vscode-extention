@@ -3,6 +3,8 @@ import { OAuth2Client, Credentials } from 'google-auth-library';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { SheetData, TranslationRow } from '../types';
+import { AuthServer } from './authServer';
+import * as vscode from 'vscode';
 
 export class GoogleSheetService {
   private sheets;
@@ -39,24 +41,32 @@ export class GoogleSheetService {
     return tokens;
   }
 
-  async startAuthFlow(): Promise<void> {
+  async startAuthFlow(): Promise<string> {
+    const authServer = new AuthServer();
+    
+    // Wait for server to be ready
+    await authServer.waitForServer();
+    const port = authServer.getPort();
+    
+    // Update redirect URI with the correct port
+    this.auth = new google.auth.OAuth2(
+      this.auth._clientId,
+      this.auth._clientSecret,
+      `http://localhost:${port}`
+    );
+
     const authUrl = this.auth.generateAuthUrl({
       access_type: 'offline',
       scope: ['https://www.googleapis.com/auth/spreadsheets']
     });
 
-    console.log('Opening browser for authentication...');
-    console.log('If the browser does not open automatically, please visit this URL:', authUrl);
-    
-    try {
-      // Using dynamic import for ESM compatibility
-      const { default: open } = await import('open').catch(() => ({ default: null }));
-      if (open) {
-        await open(authUrl);
-      }
-    } catch (error) {
-      console.log('Could not open browser automatically. Please visit the URL manually.');
-    }
+    // Open browser for authentication using VS Code's built-in method
+    await vscode.env.openExternal(vscode.Uri.parse(authUrl));
+
+    // Wait for the code
+    const code = await authServer.getCode();
+    authServer.close();
+    return code;
   }
 
   async authorize(code: string): Promise<void> {

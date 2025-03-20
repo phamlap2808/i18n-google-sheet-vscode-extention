@@ -80,24 +80,9 @@ export async function activate(context: vscode.ExtensionContext) {
             }, async (progress) => {
                 progress.report({ message: 'Starting authentication...' });
                 
-                // Get auth URL and open in browser
-                const authUrl = await googleSheetService.getAuthUrl();
-                await vscode.env.openExternal(vscode.Uri.parse(authUrl));
+                // Get auth code using the new flow
+                const authCode = await googleSheetService.startAuthFlow();
                 
-                // Show input box for auth code
-                const authCode = await vscode.window.showInputBox({
-                    prompt: 'Enter authentication code from Google',
-                    placeHolder: 'Copy the code from Google authentication page',
-                    ignoreFocusOut: true,
-                    validateInput: text => {
-                        return text.length > 0 ? null : 'Authentication code cannot be empty';
-                    }
-                });
-
-                if (!authCode) {
-                    throw new Error('Authentication process was cancelled.');
-                }
-
                 progress.report({ message: 'Exchanging authentication code...' });
                 // Get tokens using auth code
                 const tokens = await googleSheetService.getToken(authCode);
